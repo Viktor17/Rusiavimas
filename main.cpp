@@ -4,13 +4,13 @@ template <class T> void exch(T &, T &);
 template <class T> void compexch(T &, T &, int &);
 template <class T> void selection(T *, int, int, int &, int &);
 template <class T> void insertion(T *, int, int, int &, int &);
-template <class T> void bubble(T *, int, int);
+template <class T> void bubble(T *, int, int, int &, int &);
 using namespace std;
 int main(int argc, char *argv[])
 {
     int i, N = 1000, k=0;
     int ai=0,aii=0, bi=0,bii=0, ci=0,cii=0;  //skaitliukai surast kiek atlikta veiksmu
-    int *a = new int[N],*b = new int[N],*c = new int[N];
+    int *a = new int[N], *b = new int[N], *c = new int[N];
     for (i = 0; i < N; i++) a[i] = 1000*(1.0*rand()/RAND_MAX);
     for (i = 0; i < N; i++) b[i] = i;
     for (i = N; i > N; i++) { c[k] = i; k++; }
@@ -19,6 +19,9 @@ int main(int argc, char *argv[])
     selection(a, 0, N-1, ai, aii);
     selection(b, 0, N-1, bi, bii);
     selection(c, 0, N-1, ci, cii);
+    for (i = 0; i < N; i++) a[i] = 1000*(1.0*rand()/RAND_MAX);
+    for (i = 0; i < N; i++) b[i] = i;
+    for (i = N; i > N; i++) { c[k] = i; k++; }
     cout <<"\n Pirmu atveju atlikoveiksmu: "<<ai<<" + "<<aii<<" = "<<ai+aii;
     cout <<"\n Antru atveju atlikoveiksmu: "<<bi<<" + "<<bii<<" = "<<bi+bii;
     cout <<"\n Treciu atveju atlikoveiksmu: "<<ci<<" + "<<cii<<" = "<<ci+aii;
@@ -26,6 +29,17 @@ int main(int argc, char *argv[])
     insertion(a, 0, N-1, ai, aii);
     insertion(b, 0, N-1, bi, bii);
     insertion(c, 0, N-1, ci, cii);
+    cout <<"\n Pirmu atveju atlikoveiksmu: "<<ai<<" + "<<aii<<" = "<<ai+aii;
+    cout <<"\n Antru atveju atlikoveiksmu: "<<bi<<" + "<<bii<<" = "<<bi+bii;
+    cout <<"\n Treciu atveju atlikoveiksmu: "<<ci<<" + "<<cii<<" = "<<ci+aii;
+    cout << endl;
+    ai=0; aii=0; bi=0; bii=0; ci=0; cii=0;
+    for (i = 0; i < N; i++) a[i] = 1000*(1.0*rand()/RAND_MAX);
+    for (i = 0; i < N; i++) b[i] = i;
+    for (i = N; i > N; i++) { c[k] = i; k++; }
+    bubble(a, 0, N-1, ai, aii);
+    bubble(b, 0, N-1, bi, bii);
+    bubble(c, 0, N-1, ci, cii);
     cout <<"\n Pirmu atveju atlikoveiksmu: "<<ai<<" + "<<aii<<" = "<<ai+aii;
     cout <<"\n Antru atveju atlikoveiksmu: "<<bi<<" + "<<bii<<" = "<<bi+bii;
     cout <<"\n Treciu atveju atlikoveiksmu: "<<ci<<" + "<<cii<<" = "<<ci+aii;
@@ -38,9 +52,9 @@ template <class T>
     { T t = A ; A = B; B = t;}
 // Sukeièia elementus vietomis tik jei patenkinta sàlyga
 template <class T>
-  void compexch(T &A, T &B, int &sk)
-    { if (B < A) {exch(A, B);sk++;} }
-// Iðrinkimo algoritmo realizacija
+  void compexch(T &A, T &B, int &su)
+    { if (B < A){ exch(A, B); su++; } }
+// Isrinkimo algoritmo realizacija
 template <class T>
 void selection(T a[], int l, int r, int &skaitliukassukeitimo, int &skaitliukaslyginimo)
   {
@@ -52,25 +66,33 @@ void selection(T a[], int l, int r, int &skaitliukassukeitimo, int &skaitliukasl
         exch(a[i], a[min]); skaitliukassukeitimo++;
       }
   }
-// Áterpimo algoritmo realizacija
+// Iterpimo algoritmo realizacija
 template <class T>
 void insertion(T a[], int l, int r, int &sksuk, int &sklyg)
   {
     int i;
-    for (i = r; i > l; i--) compexch(a[i-1], a[i], sksuk);
+    for (i = r; i > l; i--)
+    {
+        compexch(a[i-1], a[i], sksuk);
+        sklyg++;
+    }
+
     for (i = l+2; i <= r; i++)
       { int j = i; T v = a[i];
         while (v < a[j-1])
           { a[j] = a[j-1]; j--; }
-        a[j] = v; sksuk++;
+        a[j] = v;
       }
   }
 // Burbulo algoritmas
 template <class T>
-void bubble(T a[], int l, int r)
+void bubble(T a[], int l, int r, int &sksuk, int &sklyg)
   { for (int i = l; i < r; i++)
       for (int j = r; j > i; j--)
-        compexch(a[j-1], a[j]);
+      {
+          compexch(a[j-1], a[j],sksuk); sklyg++;
+      }
+
   }
 // quick sort realizacija
 
