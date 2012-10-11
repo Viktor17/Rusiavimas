@@ -10,12 +10,12 @@ template <class T> void quicksort(T *, int, int, int &, int &);
 using namespace std;
 int main(int argc, char *argv[])
 {
-    int i, N = 1000;
+    int i, N = 10000;
     int *a = new int[N], *b = new int[N], *c = new int[N];
     cout << "Sukureme tris masyvus:\nPirmas a masyvas random\nAntras b masyvas ";
-    cout << "surusiuotas nuo 1 iki 1000\nTrecias c masyvas surusiuotas nuo 1000 iki 1\n\n";
-    cout << "Isrinkimas (selection): ";
+    cout << "surusiuotas nuo 1 iki "<<N<<"\nTrecias c masyvas surusiuotas nuo "<<N<<" iki 1\n";
     //---------ISRINKIMAS---------
+    cout << "\nIsrinkimas (selection): ";
     int ai=0, aii=0, bi=0, bii=0, ci=0, cii=0, k=0;  //skaitliukai surast kiek atlikta veiksmu
     for (i = 0; i < N; i++) a[i] = 1000*(1.0*rand()/RAND_MAX);
     for (i = 0; i < N; i++) b[i] = i;
@@ -28,6 +28,7 @@ int main(int argc, char *argv[])
     cout <<"\n Treciu atveju atlikoveiksmu: "<<ci<<" + "<<cii<<" = "<<ci+aii;
     cout << endl;
     //---------ITERPIMAS---------
+    cout << "\nIterpimas (insertion): ";
     ai=0, aii=0, bi=0, bii=0, ci=0, cii=0, k=0;  //skaitliukai surast kiek atlikta veiksmu
     for (i = 0; i < N; i++) a[i] = 1000*(1.0*rand()/RAND_MAX);
     for (i = 0; i < N; i++) b[i] = i;
@@ -40,6 +41,7 @@ int main(int argc, char *argv[])
     cout <<"\n Treciu atveju atlikoveiksmu: "<<ci<<" + "<<cii<<" = "<<ci+aii;
     cout << endl;
     //---------BURBULAS---------
+    cout << "\nBurbulas (bubble): ";
     ai=0, aii=0, bi=0, bii=0, ci=0, cii=0, k=0;  //skaitliukai surast kiek atlikta veiksmu
     for (i = 0; i < N; i++) a[i] = 1000*(1.0*rand()/RAND_MAX);
     for (i = 0; i < N; i++) b[i] = i;
@@ -52,6 +54,7 @@ int main(int argc, char *argv[])
     cout <<"\n Treciu atveju atlikoveiksmu: "<<ci<<" + "<<cii<<" = "<<ci+aii;
     cout << endl;
     //---------QUICK SORT---------
+    cout << "\nGreitas rusiavimas (quicksort): ";
     ai=0, aii=0, bi=0, bii=0, ci=0, cii=0, k=0;  //skaitliukai surast kiek atlikta veiksmu
     for (i = 0; i < N; i++) a[i] = 1000*(1.0*rand()/RAND_MAX);
     for (i = 0; i < N; i++) b[i] = i;
@@ -101,7 +104,10 @@ void selection(T a[], int l, int r, int &skaitliukassukeitimo, int &skaitliukasl
       for (int i = l; i < r; i++)
       { int min = i;
         for (int j = i+1; j <= r; j++)
-            if (a[j] < a[min]) { min = j; skaitliukaslyginimo++;}
+        {
+            if (a[j] < a[min]) min = j;
+            skaitliukaslyginimo++;
+        }
         exch(a[i], a[min]); skaitliukassukeitimo++;
       }
   }
@@ -119,7 +125,7 @@ void insertion(T a[], int l, int r, int &sksuk, int &sklyg)
     for (i = l+2; i <= r; i++)
       { int j = i; T v = a[i];
         while (v < a[j-1])
-          { a[j] = a[j-1]; j--; }
+          { a[j] = a[j-1]; j--; sklyg++;}
         a[j] = v;
       }
   }
