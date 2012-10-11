@@ -1,3 +1,8 @@
 *.o
 *.exe
+*.layout
+*.cbp
+*.depend
 teorija/
+bin/
+obj/

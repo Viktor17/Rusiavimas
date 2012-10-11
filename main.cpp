@@ -32,15 +32,15 @@ int main(int argc, char *argv[])
     cout << endl;
 
 }
-// SukeiÄia elementus vietomis
+// Sukeièia elementus vietomis
 template <class T>
   void exch(T &A, T &B)
     { T t = A ; A = B; B = t;}
-// SukeiÄia elementus vietomis tik jei patenkinta sÄ…lyga
+// Sukeièia elementus vietomis tik jei patenkinta sàlyga
 template <class T>
   void compexch(T &A, T &B, int &sk)
     { if (B < A) {exch(A, B);sk++;} }
-// IÅ¡rinkimo algoritmo realizacija
+// Iğrinkimo algoritmo realizacija
 template <class T>
 void selection(T a[], int l, int r, int &skaitliukassukeitimo, int &skaitliukaslyginimo)
   {
@@ -52,7 +52,7 @@ void selection(T a[], int l, int r, int &skaitliukassukeitimo, int &skaitliukasl
         exch(a[i], a[min]); skaitliukassukeitimo++;
       }
   }
-// Ä®terpimo algoritmo realizacija
+// Áterpimo algoritmo realizacija
 template <class T>
 void insertion(T a[], int l, int r, int &sksuk, int &sklyg)
   {
