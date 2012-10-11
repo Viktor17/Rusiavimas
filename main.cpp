@@ -2,30 +2,36 @@
 #include <stdlib.h>
 template <class T> void exch(T &, T &);
 template <class T> void compexch(T &, T &, int &);
+template <class T> void partition(T &, int &, int &, int &, int &, int &);
 template <class T> void selection(T *, int, int, int &, int &);
 template <class T> void insertion(T *, int, int, int &, int &);
 template <class T> void bubble(T *, int, int, int &, int &);
+template <class T> void quicksort(T *, int, int, int &, int &);
 using namespace std;
 int main(int argc, char *argv[])
 {
-    int i, N = 1000, k=0;
-    int ai=0,aii=0, bi=0,bii=0, ci=0,cii=0;  //skaitliukai surast kiek atlikta veiksmu
+    int i, N = 1000;
     int *a = new int[N], *b = new int[N], *c = new int[N];
+    cout << "Sukureme tris masyvus:\nPirmas a masyvas random\nAntras b masyvas ";
+    cout << "surusiuotas nuo 1 iki 1000\nTrecias c masyvas surusiuotas nuo 1000 iki 1\n\n";
+    cout << "Isrinkimas (selection): ";
+    //---------ISRINKIMAS---------
+    int ai=0, aii=0, bi=0, bii=0, ci=0, cii=0, k=0;  //skaitliukai surast kiek atlikta veiksmu
     for (i = 0; i < N; i++) a[i] = 1000*(1.0*rand()/RAND_MAX);
     for (i = 0; i < N; i++) b[i] = i;
-    for (i = N; i > N; i++) { c[k] = i; k++; }
-    cout << "Sukureme tris masyvus:\nPirmas a masyvas random\nAntras b masyvas surusiuotas nuo 1 iki 1000\nTrecias c masyvas surusiuotas nuo 1000 iki 1\n\n";
-    cout <<"Isrinkimas (selection): ";
+    for (i = N; i > 0; i--) { c[k] = i; k++; }
     selection(a, 0, N-1, ai, aii);
     selection(b, 0, N-1, bi, bii);
     selection(c, 0, N-1, ci, cii);
-    for (i = 0; i < N; i++) a[i] = 1000*(1.0*rand()/RAND_MAX);
-    for (i = 0; i < N; i++) b[i] = i;
-    for (i = N; i > N; i++) { c[k] = i; k++; }
     cout <<"\n Pirmu atveju atlikoveiksmu: "<<ai<<" + "<<aii<<" = "<<ai+aii;
     cout <<"\n Antru atveju atlikoveiksmu: "<<bi<<" + "<<bii<<" = "<<bi+bii;
     cout <<"\n Treciu atveju atlikoveiksmu: "<<ci<<" + "<<cii<<" = "<<ci+aii;
-    cout << endl; ai=0; aii=0; bi=0; bii=0; ci=0; cii=0;
+    cout << endl;
+    //---------ITERPIMAS---------
+    ai=0, aii=0, bi=0, bii=0, ci=0, cii=0, k=0;  //skaitliukai surast kiek atlikta veiksmu
+    for (i = 0; i < N; i++) a[i] = 1000*(1.0*rand()/RAND_MAX);
+    for (i = 0; i < N; i++) b[i] = i;
+    for (i = N; i > 0; i--) { c[k] = i; k++; }
     insertion(a, 0, N-1, ai, aii);
     insertion(b, 0, N-1, bi, bii);
     insertion(c, 0, N-1, ci, cii);
@@ -33,10 +39,11 @@ int main(int argc, char *argv[])
     cout <<"\n Antru atveju atlikoveiksmu: "<<bi<<" + "<<bii<<" = "<<bi+bii;
     cout <<"\n Treciu atveju atlikoveiksmu: "<<ci<<" + "<<cii<<" = "<<ci+aii;
     cout << endl;
-    ai=0; aii=0; bi=0; bii=0; ci=0; cii=0;
+    //---------BURBULAS---------
+    ai=0, aii=0, bi=0, bii=0, ci=0, cii=0, k=0;  //skaitliukai surast kiek atlikta veiksmu
     for (i = 0; i < N; i++) a[i] = 1000*(1.0*rand()/RAND_MAX);
     for (i = 0; i < N; i++) b[i] = i;
-    for (i = N; i > N; i++) { c[k] = i; k++; }
+    for (i = N; i > 0; i--) { c[k] = i; k++; }
     bubble(a, 0, N-1, ai, aii);
     bubble(b, 0, N-1, bi, bii);
     bubble(c, 0, N-1, ci, cii);
@@ -44,16 +51,48 @@ int main(int argc, char *argv[])
     cout <<"\n Antru atveju atlikoveiksmu: "<<bi<<" + "<<bii<<" = "<<bi+bii;
     cout <<"\n Treciu atveju atlikoveiksmu: "<<ci<<" + "<<cii<<" = "<<ci+aii;
     cout << endl;
+    //---------QUICK SORT---------
+    ai=0, aii=0, bi=0, bii=0, ci=0, cii=0, k=0;  //skaitliukai surast kiek atlikta veiksmu
+    for (i = 0; i < N; i++) a[i] = 1000*(1.0*rand()/RAND_MAX);
+    for (i = 0; i < N; i++) b[i] = i;
+    for (i = N; i > 0; i--) { c[k] = i; k++; }
+    quicksort(a, 0, N-1, ai, aii);
+    quicksort(b, 0, N-1, bi, bii);
+    quicksort(c, 0, N-1, ci, cii);
+    cout <<"\n Pirmu atveju atlikoveiksmu: "<<ai<<" + "<<aii<<" = "<<ai+aii;
+    cout <<"\n Antru atveju atlikoveiksmu: "<<bi<<" + "<<bii<<" = "<<bi+bii;
+    cout <<"\n Treciu atveju atlikoveiksmu: "<<ci<<" + "<<cii<<" = "<<ci+aii;
+    cout << endl;
 
 }
-// Sukeièia elementus vietomis
+// Sukeicia elementus vietomis
 template <class T>
   void exch(T &A, T &B)
     { T t = A ; A = B; B = t;}
-// Sukeièia elementus vietomis tik jei patenkinta sàlyga
+// Sukeicia elementus vietomis tik jei patenkinta salyga
 template <class T>
   void compexch(T &A, T &B, int &su)
     { if (B < A){ exch(A, B); su++; } }
+template <class T>
+int partition(T a[], int left, int right, int pivotIndex, int &suk, int &lyg)
+{
+    int pivot = a[pivotIndex];
+    do
+    {
+        while (a[left] < pivot) left++;
+        while (a[right] > pivot) right--;
+        if (left < right && a[left] != a[right])
+        {
+            swap(a[left], a[right]); suk++;
+        }
+        else
+        {
+            return right;
+        }
+    }
+    while (left < right);
+    return right;
+}
 // Isrinkimo algoritmo realizacija
 template <class T>
 void selection(T a[], int l, int r, int &skaitliukassukeitimo, int &skaitliukaslyginimo)
@@ -95,5 +134,16 @@ void bubble(T a[], int l, int r, int &sksuk, int &sklyg)
 
   }
 // quick sort realizacija
-
+template <class T>
+void quicksort(T a[], int left, int right, int &sksuk, int &sklyg)
+{
+    if (left < right)
+    {
+        int pivot = (left + right) / 2; // middle
+        int pivotNew = partition(a, left, right, pivot,sksuk,sklyg);
+        quicksort(a, left, pivotNew - 1, sksuk, sklyg);
+        quicksort(a, pivotNew + 1, right, sksuk, sklyg);
+        sklyg++;
+    }
+}
 
